@@ -7,7 +7,7 @@ GRAPH
   apt (2.4.0)
   build-essential (2.0.4)
   chef_handler (1.1.6)
-  clakeb (0.1.0)
+  clakeb (0.0.13)
     homebrew (~> 1.8.0)
     rbenv (~> 1.7.1)
   dmg (2.2.0)

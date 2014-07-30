@@ -1,4 +1,4 @@
-#
+##
 # Cookbook Name:: clakeb
 # Recipe:: brew
 #
@@ -23,24 +23,3 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-
-brew = node[:brew]
-
-include_recipe "homebrew"
-include_recipe "homebrew::cask"
-
-brew[:taps].each do |tap|
-  homebrew_tap tap
-end
-
-brew[:formulas][:brews].each do |formula|
-  package formula
-end
-
-brew[:formulas][:casks].each do |cask|
-  homebrew_cask cask
-end
-
-execute "brew cask alfred link"
-
-execute "brew link ncurses"

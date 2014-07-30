@@ -24,44 +24,28 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-## Dirs & Repos
-node[:dev][:dirs].each do |parent, repos|
-  unless Dir.exist? "#{node[:system][:home_dir]}/#{parent}"
-    directory "#{node[:system][:home_dir]}/#{parent}" do
-      owner node[:system][:user]
-      group node[:system][:group]
-      mode 00755
-    end
+node[:dev][:dirs].each do |folder, repos|
+  directory "#{node['etc']['passwd'][node['current_user']]['dir']}/#{folder}" do
+    owner node['current_user']
   end
 
-  repos.each do |repo|
-    git "#{node[:system][:home_dir]}/#{parent}" do
+  repos.each do |repo_folder, repo|
+
+    directory "#{node['etc']['passwd'][node['current_user']]['dir']}/#{folder}/#{repo_folder}" do
+      owner node['current_user']
+    end
+
+    git "#{node['etc']['passwd'][node['current_user']]['dir']}/#{folder}/#{repo_folder}" do
       repository repo
-      action :sync
-      user node[:system][:user]
-      group node[:system][:group]
+      enable_submodules true
+      action :checkout
+      user node['current_user']
     end
   end
 end
-
-## ST3
-# Get package control
-
-# Move settings, packages, keymaps & license
 
 ## APM
 # Packages
 node[:dev][:apms].each do |apm|
   execute "apm install #{apm}"
-end
-# Config, theme & keymaps
-
-## NPM
-# Packages
-node[:dev][:npms].each do |npm|
-  execute "npm install -g #{npm}"
-end
-
-link "/etc/hosts" do
-  to "#{node[:system][:home_dir]}/Development/hosts"
 end

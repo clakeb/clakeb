@@ -26,12 +26,11 @@
 
 ### Miscellaneous
 
-## Delete "About Downloads" file
-file "#{node[:system][:home_dir]}/Downloads/About Downloads" do
-  action :delete
-end
-
 ## Open apps to get them going (eg, Dropbox, Google Drive)
 node[:misc][:open_apps].each do |open|
   execute "open -a #{open}"
 end
+
+execute "brew cask alfred link"
+
+execute "brew link ncurses"

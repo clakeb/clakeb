@@ -1,12 +1,9 @@
-rbenv = default[:rbenv]
 
-rbenv[:repo] = "https://github.com/sstephenson/rbenv.git"
+default[:rbenv][:repo] = "https://github.com/sstephenson/rbenv.git"
 
-rbenv[:repo][:revision] = "master"
-rbenv[:repo][:location] = "/Users/#{node[:system][:user]}/.rbenv"
+default[:rbenv][:dir] = ".rbenv"
 
-rbenv[:plugins][:locations] = "/Users/#{node[:system][:user]}/.rbenv/plugins"
-rbenv[:plugins] = {
+default[:rbenv][:plugins] = {
   "ruby-build"       => "https://github.com/sstephenson/ruby-build.git",
   "rbenv-gem-rehash" => "https://github.com/sstephenson/rbenv-gem-rehash.git",
   "rbenv-vars"       => "https://github.com/sstephenson/rbenv-vars.git",
@@ -15,19 +12,17 @@ rbenv[:plugins] = {
   "rbenv-update"     => "https://github.com/rkh/rbenv-update.git"
 }
 
-rbenv[:install] = {
-  :rubies => {
-    "2.1.2" => [
-      "bundler",
-      "chef",
-      "berkshelf",
-      "test-kitchen",
-      "rails",
-    ],
-    "1.9.3-p547" => [
-      "bundler",
-      "sup",
-      "ncursesw"
-    ]
-  }
+default[:rbenv][:install][:rubies] = {
+  "2.1.2" => [
+    "bundler",
+    "chef",
+    "berkshelf",
+    "test-kitchen",
+    "rails",
+  ],
+  "1.9.3-p547" => [
+    "bundler",
+    "sup",
+    "ncursesw"
+  ]
 }

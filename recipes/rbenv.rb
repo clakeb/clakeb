@@ -25,33 +25,48 @@
 #
 
 # Install rbenv
-git node[:rbenv][:repo][:location] do
+directory "#{node['etc']['passwd'][node['current_user']]['dir']}/#{node[:rbenv][:dir]}" do
+  owner node['current_user']
+end
+
+git "#{node['etc']['passwd'][node['current_user']]['dir']}/#{node[:rbenv][:dir]}" do
   repository node[:rbenv][:repo]
-  reference node[:rbenv][:revision]
-  action :sync
-  user node[:system][:user]
-  group node[:system][:group]
+  enable_submodules true
+  action :checkout
+  user node['current_user']
+end
+
+%w{shims versions plugins}.each do |dir_name|
+  directory "#{node['etc']['passwd'][node['current_user']]['dir']}/#{node[:rbenv][:dir]}" do
+    owner node['current_user']
+    mode "2775"
+    action [:create]
+  end
 end
 
 # rbenv plugins
-node[:rbenv][:plugins].each do |plugin, repo|
-  git "#{node[:rbenv][:plugins][:location]}/#{plugin}" do
+node[:rbenv][:plugins].each do |folder, repo|
+
+  directory "#{node['etc']['passwd'][node['current_user']]['dir']}/#{node[:rbenv][:dir]}/plugins/#{folder}" do
+    owner node['current_user']
+  end
+
+  git "#{node['etc']['passwd'][node['current_user']]['dir']}/#{node[:rbenv][:dir]}/plugins/#{folder}" do
     repository repo
-    reference node[:rbenv][:revision]
-    action :sync
-    user node[:system][:user]
-    group node[:system][:group]
+    enable_submodules true
+    action :checkout
+    user node['current_user']
   end
 end
 
 # Rubies & Gems
 node[:rbenv][:install][:rubies].each do |version, gems|
-  ruby_ruby version
+  rbenv_ruby version
 
   gems.each do |gem|
     rbenv_gem gem do
       ruby_version version
-      options "--no-rdoc --no-ri"
+      # options ["--no-rdoc", "--no-ri"]
     end
   end
 
