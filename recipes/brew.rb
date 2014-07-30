@@ -1,0 +1,46 @@
+#
+# Cookbook Name:: clakeb
+# Recipe:: brew
+#
+# Copyright (C) 2014 C. Blake Barber
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+brew = node[:brew]
+
+include_recipe "homebrew"
+include_recipe "homebrew::cask"
+
+brew[:taps].each do |tap|
+  homebrew_tap tap
+end
+
+brew[:formulas][:brews].each do |formula|
+  package formula
+end
+
+brew[:formulas][:casks].each do |cask|
+  homebrew_cask cask
+end
+
+execute "brew cask alfred link"
+
+execute "brew link ncurses"

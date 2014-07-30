@@ -1,0 +1,10 @@
+name             'clakeb'
+maintainer       'C. Blake Barber'
+maintainer_email 'clakeb@gmail.com'
+license          'MIT'
+description      'Installs/Configures clakeb'
+long_description 'Installs/Configures clakeb'
+version          '0.1.0'
+
+depends 'homebrew', '~> 1.8.0'
+depends 'rbenv', '~> 1.7.1'

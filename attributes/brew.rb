@@ -1,0 +1,90 @@
+## Brew
+brew = default[:brew]
+
+brew[:owner] = node[:system][:user]
+
+brew[:taps] = [
+  "clakeb/clakeb",
+  "homebrew/apache",
+  "homebrew/binary",
+  "homebrew/completions",
+  "homebrew/dupes",
+  "homebrew/headonly",
+  "homebrew/nginx",
+  "homebrew/php",
+  "homebrew/python",
+  "homebrew/versions",
+  "telemachus/desc",
+  "caskroom/cask",
+  "caskroom/fonts",
+  "caskroom/versions"
+]
+
+brew[:formulas][:brews] = [
+  "bash",
+  "bash-completion",
+  "brew-cask",
+  "brew-desc",
+  "php55",
+  "composer",
+  "git",
+  "git-extras",
+  "git-flow",
+  "lsyncd",
+  "msmtp",
+  "mysql --enable-debug",
+  "mariadb",
+  "ncurses",
+  "nginx-full",
+  "node",
+  "offline-imap",
+  "openssh",
+  "openssl",
+  "packer",
+  "postgresql",
+  "python",
+  "python3",
+  "tmux",
+  "wget",
+  "zsh"
+]
+
+brew[:formulas][:casks] = [
+  "adium",
+  "alfred",
+  "atom",
+  "asepsis",
+  "authy-bluetooth",
+  "chefdk",
+  "cleanmymac",
+  "displaylink",
+  "dropbox",
+  "flux",
+  "font-anonymous-pro",
+  "font-inconsolata",
+  "font-source-code-pro",
+  "font-source-sans-pro",
+  "google-chrome",
+  "google-drive",
+  "google-web-designer",
+  "google-hangouts",
+  "iterm2",
+  "macpaw-gemini",
+  "moom",
+  "onepassword",
+  "rescuetime",
+  "sdformatter",
+  "sequel-pro",
+  "skype",
+  "slack",
+  "sourcetree",
+  "spotify",
+  "sublime-text3",
+  "time-sink",
+  # "totalfinder"
+  "transmit",
+  "vagrant",
+  "virtualbox",
+  "vmware-fusion",
+  "xscope"
+]
